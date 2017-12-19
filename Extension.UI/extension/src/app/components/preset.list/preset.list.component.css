@@ -1,0 +1,26 @@
+.preset-list {
+    height: 275px;
+    width: 140px;
+    overflow-y: auto;
+}
+.preset-list::-webkit-scrollbar
+{
+    width: 5px;
+}
+.preset-list::-webkit-scrollbar-track
+{
+	background-color: rgb(190, 198, 238);
+}
+.preset-list::-webkit-scrollbar-thumb
+{
+	background-color: rgb(80, 114, 153);
+}
+.preset {
+    padding: 5px 5px 5px 5px;
+    border-bottom: 1.5px solid rgb(80, 114, 153);
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+.preset:hover {
+    background-color: rgb(201, 219, 252);
+}

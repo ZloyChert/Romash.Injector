@@ -1,0 +1,21 @@
+.button
+{
+    width: 140px;
+    height: 36px;
+    border: 0px;
+    outline: 0;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Open Sans';
+    user-select: none;
+}
+
+.button.enable-button {
+    background-color: #8bc24a;
+    color: #ffffff;
+}
+
+.button.disable-button {
+    background-color: #e5e5e5;
+    color: #272727;
+}

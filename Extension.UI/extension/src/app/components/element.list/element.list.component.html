@@ -1,0 +1,6 @@
+<div class="element-list">
+  <div *ngFor="let element of elements" class="element" (click)="elementClick()">
+    <img src="{{element.src}}" class="image"/>
+    <div class="name">{{element.name}}</div>
+  </div>
+</div>

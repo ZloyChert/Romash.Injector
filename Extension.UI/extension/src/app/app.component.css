@@ -1,0 +1,9 @@
+.extensionStyle {
+    height: 275px;
+    width: 545px;
+    border: 1px solid grey;
+    padding: 0px;
+}
+.inline-component {
+    display: inline-block;
+}
