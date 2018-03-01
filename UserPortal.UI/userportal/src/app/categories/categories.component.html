@@ -1,0 +1,8 @@
+<div class="categories">
+  <div class="category" *ngFor="let category of categories">
+    <div class="category-text">{{category.Name}}</div>
+  </div>
+  <div routerLink="/create" class="category">
+    <div class="new-category-text">+</div>
+  </div>
+</div>

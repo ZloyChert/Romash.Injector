@@ -1,0 +1,30 @@
+.category-create {
+    position: absolute;
+    top: 50%;
+    left: 45%;
+}
+.name-input {
+    background: transparent;
+    border: 1px solid #222222;
+    width: 200px;
+}
+.name-input:focus {
+    outline-width: 0px;
+}
+.submit-btn {
+    margin-top: 20px; 
+    width: 202px;
+    height: 25px;
+    background-color: darkgreen;
+    opacity: 0.6;
+    cursor: pointer;
+    text-align: center;
+    padding-top: 6px; 
+}
+.submit-text {
+    text-transform: uppercase;
+    color: #dddddd;
+}
+.submit-btn:hover {
+    opacity: 1;
+}

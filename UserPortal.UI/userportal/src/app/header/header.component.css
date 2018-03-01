@@ -1,0 +1,51 @@
+.header {
+    height: 50px;
+    cursor: pointer;
+}
+.header-text:focus {
+    outline-width: 0;
+}
+.header-text {
+    color: #cccccc;
+    font-weight: 600;
+    font-size: 30px;
+    text-transform: uppercase;
+    display: inline-block;
+}
+.icon {
+    margin-left: 60px;
+    margin-top: 5px;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    background: url(/../../assets/icon.png) no-repeat center center ; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.title-group {
+    float: right;
+    margin-top: 15px; 
+    margin-right: 20px;
+}
+.title {
+    margin-left: 10px; 
+    display: inline-block;
+    color: #cccccc;
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.title:focus {
+    outline-width: 0;
+}
+.title:hover {
+    color: #ffffff;
+}
+.bottom-line {
+    background-color: #eeeeee;
+    height: 1px;
+    opacity: 0.3;
+}

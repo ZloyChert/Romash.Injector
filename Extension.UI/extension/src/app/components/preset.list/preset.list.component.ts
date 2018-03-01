@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { CategoryService } from './../../services/categories.service';
 
 @Component({
   selector: 'app-preset-list',
@@ -10,7 +11,7 @@ export class PresetListComponent implements OnInit {
 
   public presets: any;
 
-  constructor() { }
+  constructor(private ctgService: CategoryService) { }
 
   ngOnInit() {
     this.presets = [
@@ -27,26 +28,26 @@ export class PresetListComponent implements OnInit {
         name: 'Funny Animals'
       },{
         id: 1,
-        name: 'Witcher'
+        name: 'Roslyn'
       },
       {
         id: 2,
-        name: 'Artists'
+        name: 'Wolfy'
       },
       {
         id: 3,
-        name: 'Funny Animals'
+        name: 'Two carrots'
       },{
         id: 1,
-        name: 'Witcher'
+        name: 'Girls'
       },
       {
         id: 2,
-        name: 'Artists'
+        name: 'One man'
       },
       {
         id: 3,
-        name: 'Funny Animals'
+        name: 'Cup of tea'
       },{
         id: 1,
         name: 'Witcher'
@@ -126,6 +127,7 @@ export class PresetListComponent implements OnInit {
         name: 'Funny Animals'
       },
     ]
+    this.ctgService.getCategories().subscribe((result) => {this.presets = result;console.log(this.presets);});
   }
 
 }

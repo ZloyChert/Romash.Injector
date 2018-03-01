@@ -1,0 +1,36 @@
+.main-screen {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+}
+.tutorial-btn {
+    width: 150px;
+    height: 40px;
+    background-color: crimson;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+}
+.tutorial-text {
+    margin-top: 7px;
+    color: #dddddd;
+    font-size: 20px;
+}
+.tutorial-btn:hover {
+    box-shadow: inset 0 0 3px black;
+}
+.get-started-btn {
+    width: 150px;
+    height: 40px;
+    border: 2px solid #444444;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+}
+.get-started-text {
+    margin-top: 7px;
+    font-size: 20px;
+}
+.get-started-btn:hover {
+    box-shadow: inset 0 0 3px black;
+}

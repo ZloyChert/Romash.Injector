@@ -14,8 +14,7 @@
         "default_popup": "popup.html"
     },
   "permissions": [
-    "https://*/*",
-    "http://*/*",
+    "https://vk.com/im/*",
     "tabs",
     "storage",
     "activeTab"
