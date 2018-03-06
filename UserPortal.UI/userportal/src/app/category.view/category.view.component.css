@@ -2,7 +2,7 @@
     padding: 20px;
 }
 .elements-list {
-    width: 200px;
+    max-width: 200px;
     padding: 0px 20px 0px 10px;
     overflow: auto;
     display: inline-block;
@@ -58,7 +58,7 @@
 }
 .new-element-text {
     color: #888888;
-    opacity: 0.3;
+    opacity: 0.6;
     font-weight: 100;
     font-size: 130px;
 }

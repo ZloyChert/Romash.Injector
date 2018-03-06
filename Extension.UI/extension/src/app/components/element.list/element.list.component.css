@@ -2,6 +2,7 @@
     width: 400px;
     height: 275px;
     overflow-y: auto;
+    display: inline-block;
 }
 .element-list::-webkit-scrollbar
 {

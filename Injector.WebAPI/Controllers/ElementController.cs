@@ -3,6 +3,8 @@ using System.Linq;
 using System.Web.Http;
 using Injector.Business.Abstract;
 using Injector.Shared;
+using Injector.WebAPI.Models;
+using VkMessageService;
 
 namespace Injector.WebAPI.Controllers
 {
@@ -33,6 +35,21 @@ namespace Injector.WebAPI.Controllers
         public void DeleteElement(int id)
         {
             _elementService.Delete(id);
+        }
+
+        [HttpGet]
+        [Route("get/html/{id}")]
+        public string GetElementHtml(string guid)
+        {
+            return _elementService.GetByGuid(guid)?.HtmlElement;
+        }
+
+        [HttpPost]
+        [Route("send")]
+        public void SendMessage([FromBody]SendMessageQuery query)
+        {
+            MessageServiceVk vkService = new MessageServiceVk();
+            vkService.SendByUrl(query.Url, $"elementcustom{query.Guid}");
         }
     }
 }

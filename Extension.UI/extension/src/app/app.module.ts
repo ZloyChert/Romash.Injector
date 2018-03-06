@@ -5,7 +5,11 @@ import { AppComponent } from './app.component';
 import { CategoryService } from './services/categories.service';
 import { PresetListComponent } from './components/preset.list/preset.list.component';
 import { ElementListComponent } from './components/element.list/element.list.component';
+import { RouterModule, Routes } from '@angular/router';
 
+const appRoutes: Routes = [
+  { path: 'category/:id', component: ElementListComponent }
+];
 
 @NgModule({
   declarations: [
@@ -14,6 +18,7 @@ import { ElementListComponent } from './components/element.list/element.list.com
     ElementListComponent
   ],
   imports: [
+    RouterModule.forRoot(appRoutes),
     HttpClientModule,
     BrowserModule
   ],

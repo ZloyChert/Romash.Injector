@@ -15,7 +15,6 @@ namespace Injector.Repository
                 var category = dbContext.Set<Categories>().Add(new Categories
                 {
                     Name = element.Name,
-                    CreatedUserId = element.UserId,
                     ImgSrc = element.ImgSrc
                 });
                 return category.Id;
@@ -30,7 +29,6 @@ namespace Injector.Repository
                 if (category != null)
                 {
                     category.Name = element.Name;
-                    category.CreatedUserId = element.UserId;
                     category.ImgSrc = element.ImgSrc;
                 }
             }
@@ -59,7 +57,6 @@ namespace Injector.Repository
                     {
                         Id = category.Id,
                         Name = category.Name,
-                        UserId = category.CreatedUserId,
                         ImgSrc = category.ImgSrc
                     };
             }
@@ -75,7 +72,6 @@ namespace Injector.Repository
                 {
                     Id = category.Id,
                     Name = category.Name,
-                    UserId = category.CreatedUserId,
                     ImgSrc = category.ImgSrc
                 }).ToList();
             }

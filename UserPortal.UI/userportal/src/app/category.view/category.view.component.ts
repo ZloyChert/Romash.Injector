@@ -22,9 +22,6 @@ export class CategoryViewComponent implements OnInit {
         this.categoryId = +params['id'];
       }
       this.getElements();
-      if (this.elements[0]) {
-        this.activeElementId = this.elements[0].Id;
-      }
     });
   }
 
@@ -33,7 +30,14 @@ export class CategoryViewComponent implements OnInit {
   }
 
   get ActiveElementHtml(): string {
-    return this.elements.find(n => n.Id === this.activeElementId).HtmlElement;
+    if (this.elements && this.elements.length > 0 && this.activeElementId) {
+      return this.elements.find(n => n.Id === this.activeElementId).HtmlElement;
+    }
+    return '';
+  }
+
+  onNewElementClick(): void {
+    this.router.navigateByUrl('/create/element/' + this.categoryId);
   }
 
   getElements() {

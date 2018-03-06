@@ -167,6 +167,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\SendMessageQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -181,7 +182,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Authorithation\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Injector.Business.Abstract\Injector.Business.Abstract.csproj">
@@ -199,6 +199,10 @@
     <ProjectReference Include="..\Romash.DI\Romash.DI.csproj">
       <Project>{b4fcfc0f-0a58-4051-9211-51b1428ceb27}</Project>
       <Name>Romash.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VkMessageService\VkMessageService.csproj">
+      <Project>{29b0270d-cea9-4068-be2d-a8f88ee9ecc3}</Project>
+      <Name>VkMessageService</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

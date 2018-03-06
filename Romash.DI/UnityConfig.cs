@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Injector.Business;
+using Injector.Business.Abstract;
 using Injector.ORM;
 using Injector.Repository;
 using Injector.Repository.Abstract;
@@ -30,6 +32,8 @@ namespace Romash.DI
             container.RegisterType(typeof(IRepository<Element>), typeof(Repository<Elements, Element>), new HierarchicalLifetimeManager());
             container.RegisterType(typeof(IRepository<Category>), typeof(Repository<Categories, Category>), new HierarchicalLifetimeManager());
             container.RegisterType(typeof(IRepository<User>), typeof(Repository<Users, User>), new HierarchicalLifetimeManager());
+            container.RegisterType(typeof(ICategoryService), typeof(CategoryService), new HierarchicalLifetimeManager());
+            container.RegisterType(typeof(IElementService), typeof(ElementService), new HierarchicalLifetimeManager());
         }
     }
 }

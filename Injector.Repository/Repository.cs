@@ -60,7 +60,7 @@ namespace Injector.Repository
         {
             using (InjectorDatabase dbContext = new InjectorDatabase())
             {
-                return dbContext.Set<TDb>().Select(entity => entity.MapToEntity<TDb, T>()).ToList();
+                return dbContext.Set<TDb>().ToList().Select(entity => entity.MapToEntity<TDb, T>()).ToList();
             }
         }
     }

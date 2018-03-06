@@ -1,13 +1,11 @@
 <div class="elements">
-  <div class="elements-list">
+  <div class="elements-list" *ngIf="elements">
     <div class="element" *ngFor="let element of elements" (click)="onElementClick(element.Id)">
       <div class="element-text">{{element.Name}}</div>
     </div>
+    <div (click)="onNewElementClick()" class="element">
+      <div class="new-element-text">+</div>
+    </div>
   </div>
-
   <div [innerHTML]="ActiveElementHtml | safeHtml" class="user-element"></div>
-
-  <div routerLink="/create/element" class="element new-element-margin">
-    <div class="new-element-text">+</div>
-  </div>
 </div>

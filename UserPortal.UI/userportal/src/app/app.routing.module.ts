@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'create', component: CategoryCreatesComponent },
   { path: '', component: StartScreenComponent },
   { path: 'category/:id', component: CategoryViewComponent},
-  { path: 'create/element', component: ElementCreateComponent}
+  { path: 'create/element/:id', component: ElementCreateComponent}
 ];
 
 @NgModule({

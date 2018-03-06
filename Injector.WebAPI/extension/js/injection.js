@@ -44,7 +44,7 @@
 
 (function () {
     'use strict';
-    var iframeSrc = ' http://localhost:4200/',
+    var iframeSrc = ' http://localhost:4100/',
         pageIfarameContanerId = 'bb491b2a43bd46758db6a9422cf1c4c3',
         pageIfarameContanerHeaderId = 'c24b2ca7b46d4d77958548078d54d01a',
         ideIframeId = 'deff9042cd5f4d2994ee68a36550f207',
@@ -115,6 +115,7 @@
             ActionBootstrap: 'bootstrap',
             ActionRecord: 'record',
             ActionCaptcha: 'captcha',
+            SendElement: 'sendelement',
             ActionResult: 'actionresult',
             ResulHighlight: 'actionresulthighlight',
             LocateResults: 'locateresults'
@@ -524,8 +525,7 @@
                     initRecaptchaEvent();
                 }
                 break;
-            case messageTypes.ActionCaptcha:
-                selectCaptcha();
+            case messageTypes.SendElement:
                 break;
             case messageTypes.ResulHighlight:
                 if (event.data.message.nesesary === true) {
@@ -545,26 +545,11 @@
 
     function stubdemo() {
         var elements = document.body.getElementsByTagName("*");
-        var htmlstr1 =
-            '<span role="link" aria-label="OTVETIT" class="im-mess--reply _im_mess_reply"></span>' +
-            '<span role="link" aria-label="VAZNOE SOOBJENIE" class="im-mess--fav _im_mess_fav"></span>' +
-            ' </div> <div class="im-mess--check fl_l"></div> <div class="im-mess--text wall_module _im_log_body">' +
-            '<div class="im_msg_text"></div><div class="_im_msg_media612787">' +
-            '<div class="im_msg_media im_msg_media_sticker"><div class="im_sticker_row">' +
-            '<a onmouseover="return Emoji.stickerOver(4431, this);" onclick="return Emoji.clickSticker(142, this, event);">' +
-            '<img height="128" class="im_gift" src=';
-            var path = "https://i.pinimg.com/736x/52/6e/f2/526ef21f3b62652f5872f032461fd8e8--king-arthur-witch-art.jpg"
-            var htmlstr2 = '></a></div></div>' +
-            '</div></div> <span tabindex="0" role="link" aria-label="VIDELIT" class="blind_label im-mess--blind-select _im_mess_blind_label_select">' +
-            '</span> <span tabindex="0" aria-label="VIDELENO" class="blind_label im-mess--blind-selected"></span>' +
-            ' <span tabindex="0" aria-label="NE PROCHITANO" class="blind_label im-mess--blind-read"></span>' +
-            ' <span class="im-mess--marker _im_mess_marker"></span>';
         for (var i = 0, l = elements.length; i < l; i++) {
-            if (elements[i].textContent.startsWith("qq")) {
+            if (elements[i].textContent.startsWith("elementcustom")) {
                 console.log("request");
-                var a = httpGet("http://localhost:19407/GetInnerHtmlForText/" + elements[i].textContent);
-                if(a.length > 2)
-                    elements[i].innerHTML = htmlstr1 + a + htmlstr2;
+                var innertHtmlForElement = httpGet("http://localhost:19407/get/html/" + elements[i].textContent.substr(13, elements[i].textContent.length - 13));
+                elements[i].innerHTML = innertHtmlForElement;
                 console.log(a);
                 console.log("request1");
             }
@@ -579,6 +564,7 @@
     }
 
     function injectIframe() {
+      if (!document.getElementById(pageIfarameContanerId)) {
         pageIframeContainer = document.createElement('div');
         pageIframeContainer.id = pageIfarameContanerId;
         pageIframeContainer.style.cssText = pageIfarameContainerStyle;
@@ -614,21 +600,21 @@
         iframe = ideIframe;
 
         var css = highlightningStyleClass,
-            head = document.head || document.getElementsByTagName('head')[0],
-            style = document.createElement('style');
+          head = document.head || document.getElementsByTagName('head')[0],
+          style = document.createElement('style');
 
         style.type = 'text/css';
         if (style.styleSheet) {
-            style.styleSheet.cssText = css;
+          style.styleSheet.cssText = css;
         } else {
-            style.appendChild(document.createTextNode(css));
+          style.appendChild(document.createTextNode(css));
         }
 
         head.appendChild(style);
         initMinimize();
         initDragAndDrop();
         detectDomChange();
-
+      }
     }
 
     injectIframe();

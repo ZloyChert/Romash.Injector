@@ -6,5 +6,6 @@ namespace Injector.Business.Abstract
     public interface IElementService: IService<Element>
     {
         IEnumerable<Element> GetByCategoryId(int id);
+        Element GetByGuid(string guid);
     }
 }

@@ -1,6 +1,7 @@
 export class FrameElement {
     Id: number;
     Name: string;
-    Description: string;
-    Html: string
+    CategoryId: number;
+    HtmlElement: string;
+    ElementGuid: string;
 }

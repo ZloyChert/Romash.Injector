@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Injector.Business.Abstract"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Injector.Business", "Injector.Business\Injector.Business.csproj", "{8C61BD87-2908-46E6-BF6D-2CBE943FDEA2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Romash.DI", "Romash.DI\Romash.DI.csproj", "{B4FCFC0F-0A58-4051-9211-51B1428CEB27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VkMessageService", "VkMessageService\VkMessageService.csproj", "{29B0270D-CEA9-4068-BE2D-A8F88EE9ECC3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +63,14 @@ Global
 		{8C61BD87-2908-46E6-BF6D-2CBE943FDEA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C61BD87-2908-46E6-BF6D-2CBE943FDEA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C61BD87-2908-46E6-BF6D-2CBE943FDEA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4FCFC0F-0A58-4051-9211-51B1428CEB27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4FCFC0F-0A58-4051-9211-51B1428CEB27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4FCFC0F-0A58-4051-9211-51B1428CEB27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4FCFC0F-0A58-4051-9211-51B1428CEB27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29B0270D-CEA9-4068-BE2D-A8F88EE9ECC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29B0270D-CEA9-4068-BE2D-A8F88EE9ECC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29B0270D-CEA9-4068-BE2D-A8F88EE9ECC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29B0270D-CEA9-4068-BE2D-A8F88EE9ECC3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

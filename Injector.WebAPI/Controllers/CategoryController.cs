@@ -26,7 +26,7 @@ namespace Injector.WebAPI.Controllers
         [Route("create/category")]
         public int CreateCategory([FromBody]Category query)
         {
-            query.UserId = stubId;
+            query.CreatedUserId = stubId;
             return _categoryService.Insert(query);
         }
 

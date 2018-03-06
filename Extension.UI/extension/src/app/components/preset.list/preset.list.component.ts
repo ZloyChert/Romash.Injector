@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CategoryService } from './../../services/categories.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-preset-list',
@@ -11,123 +12,13 @@ export class PresetListComponent implements OnInit {
 
   public presets: any;
 
-  constructor(private ctgService: CategoryService) { }
+  constructor(private ctgService: CategoryService, private router: Router) { }
 
   ngOnInit() {
-    this.presets = [
-      {
-        id: 1,
-        name: 'Witcher'
-      },
-      {
-        id: 2,
-        name: 'Artists'
-      },
-      {
-        id: 3,
-        name: 'Funny Animals'
-      },{
-        id: 1,
-        name: 'Roslyn'
-      },
-      {
-        id: 2,
-        name: 'Wolfy'
-      },
-      {
-        id: 3,
-        name: 'Two carrots'
-      },{
-        id: 1,
-        name: 'Girls'
-      },
-      {
-        id: 2,
-        name: 'One man'
-      },
-      {
-        id: 3,
-        name: 'Cup of tea'
-      },{
-        id: 1,
-        name: 'Witcher'
-      },
-      {
-        id: 2,
-        name: 'Artists'
-      },
-      {
-        id: 3,
-        name: 'Funny Animals'
-      },{
-        id: 1,
-        name: 'Witcher'
-      },
-      {
-        id: 2,
-        name: 'Artists'
-      },
-      {
-        id: 3,
-        name: 'Funny Animals'
-      },{
-        id: 1,
-        name: 'Witcher'
-      },
-      {
-        id: 2,
-        name: 'Artists'
-      },
-      {
-        id: 3,
-        name: 'Funny Animals'
-      },{
-        id: 1,
-        name: 'Witcher'
-      },
-      {
-        id: 2,
-        name: 'Artists'
-      },
-      {
-        id: 3,
-        name: 'Funny Animals'
-      },{
-        id: 1,
-        name: 'Witcher'
-      },
-      {
-        id: 2,
-        name: 'Artists'
-      },
-      {
-        id: 3,
-        name: 'Funny Animals'
-      },{
-        id: 1,
-        name: 'Witcher'
-      },
-      {
-        id: 2,
-        name: 'Artists'
-      },
-      {
-        id: 3,
-        name: 'Funny Animals'
-      },{
-        id: 1,
-        name: 'Witcher'
-      },
-      {
-        id: 2,
-        name: 'Artists'
-      },
-      {
-        id: 3,
-        name: 'Funny Animals'
-      },
-    ]
-    this.ctgService.getCategories().subscribe((result) => {this.presets = result;console.log(this.presets);});
+    this.ctgService.getCategories().subscribe(result => this.presets = result);
   }
 
+  onCategoryClick(id: number): void {
+    this.router.navigateByUrl('category/' + id);
+  }
 }
