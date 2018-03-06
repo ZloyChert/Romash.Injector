@@ -12,14 +12,14 @@
     outline-width: 0px;
 }
 .submit-btn {
-    margin-top: 20px; 
+    margin-top: 20px;
     width: 202px;
     height: 25px;
     background-color: darkgreen;
     opacity: 0.6;
     cursor: pointer;
     text-align: center;
-    padding-top: 6px; 
+    padding-top: 6px;
 }
 .submit-text {
     text-transform: uppercase;

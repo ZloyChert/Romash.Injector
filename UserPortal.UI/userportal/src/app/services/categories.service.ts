@@ -1,39 +1,37 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Http, Response } from '@angular/http';
 import { Category } from './../entities/category';
-import { Observable } from 'rxjs/Rx';
+import { BaseService } from './base.service';
+import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class CategoryService {
+export class CategoryService extends BaseService {
 
-    private httpOptions = {
-        headers: new HttpHeaders({
-            'Content-Type': 'application/json'
-        })
-    };
+  constructor(private httpClient: HttpClient, private http: Http) {
+    super();
+  }
 
-    private baseUrl = 'http://localhost:19407/get/categories';
-    constructor(private httpClient: HttpClient, private http: Http) { }
+  getCategories(): Observable<Array<Category>> {
+    return this.httpClient.get<Array<Category>>(this.baseUrl + 'get/categories');
+  }
 
-    protected httpCall<T>(call: () => Observable<Response>): Observable<T> {
-        return call().map(res => { return this.respodnseToObject<T>(res); });
-    }
+  createCategory(name: string): Observable<number> {
+    const query = { Name: name };
+    return this.httpClient.post<number>(this.baseUrl + 'create/category', query, this.httpOptions);
+  }
 
-    private respodnseToObject<T>(res: Response): T {
-        return (res.json() || {}) as T;
-    }
+  activateCategory(id: number): Observable<void> {
+    return this.httpClient.put<void>(this.baseUrl + 'activate/category', id, this.httpOptions);
+  }
 
-    getCategories(): Observable<Array<Category>> {
-        return this.httpClient.get<Array<Category>>('http://localhost:19407/get/categories');
-    }
+  disactivateCategory(id: number): Observable<void> {
+    return this.httpClient.put<void>(this.baseUrl + 'disactivate/category', id, this.httpOptions);
+  }
 
-    createCategory(name: string): Observable<number> {
-        return this.httpClient.post<number>('http://localhost:19407/create/category', { Name: name }, this.httpOptions);
-    }
+  deleteCategory(id: number): Observable<void> {
+    return this.httpClient.delete<void>(this.baseUrl + 'delete/category/' + id);
+  }
 
-    createCategory1(name: string): Observable<number> {
-        return this.httpCall<number>(() => this.http.post('http://localhost:19407/create/category', { Name: name }));
-    }
 }

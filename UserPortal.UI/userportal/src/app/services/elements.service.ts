@@ -2,14 +2,24 @@ import { HttpClient } from '@angular/common/http';
 import { FrameElement } from './../entities/element';
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
+import { BaseService } from './base.service';
 
 @Injectable()
-export class ElementsService {
+export class ElementsService extends BaseService {
 
-    private baseUrl = 'http://localhost:19407/get/categories';
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {
+      super();
+    }
 
-    getElements(categoryId: number): Observable<Array<FrameElement>> {
-        return this.http.get<Array<FrameElement>>('http://localhost:19407/get/elements' + categoryId);
+    getElementsByCategoryId(categoryId: number): Observable<Array<FrameElement>> {
+        return this.http.get<Array<FrameElement>>(this.baseUrl + 'get/elements/' + categoryId);
+    }
+
+    createElement(element: FrameElement): Observable<FrameElement> {
+      return this.http.post<FrameElement>(this.baseUrl + 'create/element', element, this.httpOptions);
+    }
+
+    deleteElement(id: number): Observable<void> {
+        return this.http.delete<void>(this.baseUrl + 'get/elements/' + id);
     }
 }

@@ -5,10 +5,10 @@ namespace Injector.ORM
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class InjectoeDatabase : DbContext
+    public partial class InjectorDatabase : DbContext
     {
-        public InjectoeDatabase()
-            : base("name=InjectoeDatabase")
+        public InjectorDatabase()
+            : base("name=InjectorDatabase")
         {
         }
 

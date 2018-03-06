@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Injector.Business.Abstract;
 using Injector.Repository;
 using Injector.Repository.Abstract;
@@ -8,16 +9,22 @@ namespace Injector.Business
 {
     public class ElementService : IElementService
     {
-        private readonly IRepository<Element> repository = new ElementRepository();
+        private readonly IRepository<Element> _repository;
 
-        public int Insert(Element element) => repository.Insert(element);
+        public ElementService(IRepository<Element> repository)
+        {
+            _repository = repository;
+        }
+        public int Insert(Element element) => _repository.Insert(element);
 
-        public void Update(Element element) => repository.Update(element);
+        public void Update(Element element) => _repository.Update(element);
 
-        public void Delete(int id) => repository.Delete(id);
+        public void Delete(int id) => _repository.Delete(id);
 
-        public Element Get(int id) => repository.Get(id);
+        public Element Get(int id) => _repository.Get(id);
 
-        public IEnumerable<Element> GetAll() => repository.GetAll();
+        public IEnumerable<Element> GetAll() => _repository.GetAll();
+
+        public IEnumerable<Element> GetByCategoryId(int id)=> _repository.GetAll().Where(n => n.CategoryId == id);
     }
 }

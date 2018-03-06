@@ -13,7 +13,7 @@ export class CategoriesComponent implements OnInit {
   categories: Array<Category>;
 
   ngOnInit() {
-    this.ctgService.getCategories().subscribe(res => {this.categories = res; console.log(res); });
+    this.ctgService.getCategories().subscribe(res => this.categories = res);
   }
 
 }

@@ -1,0 +1,23 @@
+<div class="element-create">
+  <div class="name-label">Element name:</div>
+  <input class="name-input" type="text" [(ngModel)]="elementName" />
+
+  <div class="submit-btn">
+    <div class="submit-text" (click)="onCreateClick()">submit</div>
+  </div>
+
+  <div class="html-element-area">
+    <!-- <textarea class="html-input" [(ngModel)]="elementHtml"></textarea> -->
+    <div ace-editor
+       [(text)]="elementHtml"
+       [options]="options"
+       [readOnly]="false"
+       [autoUpdateContent]="true"
+       class="html-input">
+      </div>
+
+    <div [innerHTML]="elementHtml | safeHtml" class="user-element"></div>
+  </div>
+
+  <div class="warn-label">*elements, that overflows result field wouldn't be displayed</div>
+</div>

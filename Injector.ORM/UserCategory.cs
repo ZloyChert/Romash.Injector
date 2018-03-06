@@ -1,3 +1,5 @@
+using Injector.Shared;
+
 namespace Injector.ORM
 {
     using System;
@@ -7,7 +9,7 @@ namespace Injector.ORM
     using System.Data.Entity.Spatial;
 
     [Table("UserCategory")]
-    public partial class UserCategory
+    public partial class UserCategory : IEntity
     {
         public int Id { get; set; }
 

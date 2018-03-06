@@ -1,3 +1,5 @@
+using Injector.Shared;
+
 namespace Injector.ORM
 {
     using System;
@@ -6,7 +8,7 @@ namespace Injector.ORM
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Elements
+    public partial class Elements : IEntity
     {
         public int Id { get; set; }
 

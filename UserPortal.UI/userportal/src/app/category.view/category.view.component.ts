@@ -12,6 +12,7 @@ export class CategoryViewComponent implements OnInit {
 
   private categoryId: number;
   elements: Array<FrameElement>;
+  activeElementId: number;
 
   constructor(private router: Router, private route: ActivatedRoute, private elmnService: ElementsService) { }
 
@@ -20,11 +21,23 @@ export class CategoryViewComponent implements OnInit {
       if (params['id']) {
         this.categoryId = +params['id'];
       }
+      this.getElements();
+      if (this.elements[0]) {
+        this.activeElementId = this.elements[0].Id;
+      }
     });
   }
 
+  onElementClick(id: number): void {
+    this.activeElementId = id;
+  }
+
+  get ActiveElementHtml(): string {
+    return this.elements.find(n => n.Id === this.activeElementId).HtmlElement;
+  }
+
   getElements() {
-    this.elmnService.getElements(this.categoryId).subscribe(res => {
+    this.elmnService.getElementsByCategoryId(this.categoryId).subscribe(res => {
       this.elements = res;
     });
   }

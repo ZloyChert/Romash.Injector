@@ -1,3 +1,5 @@
+using Injector.Shared;
+
 namespace Injector.ORM
 {
     using System;
@@ -6,7 +8,7 @@ namespace Injector.ORM
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Categories
+    public partial class Categories : IEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Categories()

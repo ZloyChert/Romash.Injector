@@ -1,0 +1,97 @@
+.element-create {
+    padding: 20px;
+}
+.name-input {
+    background: transparent;
+    border: 1px solid #bbbbbb;
+    width: 200px;
+}
+.name-label {
+    display: inline-block;
+    color: #bbbbbb;
+}
+.html-element-area {
+    margin-top: 20px;
+}
+.html-input {
+    display: inline-block;
+    width: 45%;
+    height: 79vh;
+    /* color: #dddddd; */
+    background: transparent;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid #bbbbbb;
+}
+.user-element {
+    width: 45%;
+    height: 75vh;
+    padding: 20px;
+    border: 1px solid #bbbbbb;
+    margin-left: 20px;
+    vertical-align:top;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+}
+.name-input:focus {
+    outline-width: 0px;
+}
+.submit-btn {
+    display: inline-block;
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 202px;
+    height: 25px;
+    background-color: darkgreen;
+    opacity: 0.6;
+    cursor: pointer;
+    text-align: center;
+    padding-top: 6px;
+}
+.submit-text {
+    text-transform: uppercase;
+    color: #dddddd;
+}
+.submit-btn:hover {
+    opacity: 1;
+}
+.warn-label {
+    float: right;
+    color: #bbbbbb;
+    font-size: 12px;
+    margin-right: 5%;
+}
+
+:host /deep/ .ace_gutter {
+  opacity: 0.6;
+}
+:host /deep/ .ace_scrollbar-h::-webkit-scrollbar
+{
+    height: 7px;
+}
+:host /deep/ .ace_scrollbar-h::-webkit-scrollbar-track
+{
+    background: transparent;
+}
+:host /deep/ .ace_scrollbar-h::-webkit-scrollbar-thumb
+{
+    border: 1px solid #bbbbbb;
+    border-bottom: none;
+	  background-color: #343639;
+}
+:host /deep/ .ace_scrollbar-v::-webkit-scrollbar
+{
+    width: 7px;
+}
+:host /deep/ .ace_scrollbar-v::-webkit-scrollbar-track
+{
+    background: transparent;
+
+}
+:host /deep/ .ace_scrollbar-v::-webkit-scrollbar-thumb
+{
+    border: 1px solid #bbbbbb;
+    border-bottom: none;
+	  background-color: #343639;
+}

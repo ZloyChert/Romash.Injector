@@ -12,13 +12,16 @@
     text-transform: uppercase;
     display: inline-block;
 }
+.header-text:hover {
+    color: #ffffff;
+}
 .icon {
     margin-left: 60px;
     margin-top: 5px;
     width: 30px;
     height: 30px;
     display: inline-block;
-    background: url(/../../assets/icon.png) no-repeat center center ; 
+    background: url(/../../assets/icon.png) no-repeat center center ;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -26,11 +29,11 @@
 }
 .title-group {
     float: right;
-    margin-top: 15px; 
+    margin-top: 15px;
     margin-right: 20px;
 }
 .title {
-    margin-left: 10px; 
+    margin-left: 10px;
     display: inline-block;
     color: #cccccc;
     font-weight: 500;
