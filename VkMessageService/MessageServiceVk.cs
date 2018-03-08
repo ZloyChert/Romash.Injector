@@ -13,7 +13,7 @@ namespace VkMessageService
 
         public MessageServiceVk()
         {
-
+ 
         }
 
         public MessageServiceVk(string login, string password)

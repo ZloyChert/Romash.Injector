@@ -38,7 +38,7 @@ namespace Injector.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("get/html/{id}")]
+        [Route("get/html/{guid}")]
         public string GetElementHtml(string guid)
         {
             return _elementService.GetByGuid(guid)?.HtmlElement;

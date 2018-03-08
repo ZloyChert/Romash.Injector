@@ -4,6 +4,7 @@
 .name-input {
     background: transparent;
     border: 1px solid #bbbbbb;
+    color: #bbbbbb;
     width: 200px;
 }
 .name-label {
@@ -17,7 +18,7 @@
     display: inline-block;
     width: 45%;
     height: 79vh;
-    /* color: #dddddd; */
+    font-size: 17px;    
     background: transparent;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.2);

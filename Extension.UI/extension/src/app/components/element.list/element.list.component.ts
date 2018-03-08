@@ -12,6 +12,7 @@ export class ElementListComponent implements OnInit {
  
   elements: any;
   private categoryId: number;
+  SendMessage: 'sendmessage';
 
   constructor(private router: Router, private route: ActivatedRoute, private ctgService: CategoryService) { }
 
@@ -33,7 +34,8 @@ export class ElementListComponent implements OnInit {
   }
 
   public elementClick(guid: string): void {
-    this.ctgService.sendMessage('https://vk.com/im?peers=81716652_104311525_175712462&sel=70889092', guid).subscribe(() => {});
-    //this.postMessage({nesesary: true}, 'actionresulthighlight');
+    console.log('click');
+    this.postMessage({Guid: guid}, 'sendmessage');
+    //this.ctgService.sendMessage('https://vk.com/im?peers=81716652_104311525_175712462&sel=70889092', guid).subscribe(() => {});
   }
 }

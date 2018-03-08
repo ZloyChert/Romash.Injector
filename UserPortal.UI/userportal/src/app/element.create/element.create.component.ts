@@ -30,10 +30,11 @@ export class ElementCreateComponent implements OnInit {
 
   onCreateClick(): void {
     const element = new FrameElement();
-    element.HtmlElement = this.elementHtml;
+    element.HtmlElement = escape(this.elementHtml);
     element.Name = this.elementName;
     element.CategoryId = this.categoryId;
     this.elmnService.createElement(element).subscribe(() => { });
+    this.router.navigateByUrl('/category/' + this.categoryId);
   }
 
 }

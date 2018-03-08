@@ -1,8 +1,16 @@
 <div class="categories">
-  <div class="category" *ngFor="let category of categories">
-    <div class="category-text">{{category.Name}}</div>
+  <div 
+    id="category.Id" 
+    class="category"
+    *ngFor="let category of categories" 
+    (click)="onCategoryClick(category.Id)">
+    <div class="category-text">
+      {{category.Name}}
+    </div>
   </div>
   <div routerLink="/create" class="category">
-    <div class="new-category-text">+</div>
+    <div class="category-text">
+      {{newElementText}}
+    </div>
   </div>
 </div>

@@ -1,6 +1,4 @@
 <div class="element-list">
-  <div *ngFor="let element of elements" class="element" (click)="elementClick(element.ElementGuid)">
-    <img src="{{element.src}}" class="image"/>
-    <div class="name">{{element.name}}</div>
-  </div>
+  <div *ngIf="!elements?.length">No elements yet</div>
+  <div *ngFor="let element of elements" class="element" (click)="elementClick(element.ElementGuid)">{{element.Name}}</div>
 </div>

@@ -31,7 +31,7 @@ export class CategoryViewComponent implements OnInit {
 
   get ActiveElementHtml(): string {
     if (this.elements && this.elements.length > 0 && this.activeElementId) {
-      return this.elements.find(n => n.Id === this.activeElementId).HtmlElement;
+      return unescape(this.elements.find(n => n.Id === this.activeElementId).HtmlElement);
     }
     return '';
   }

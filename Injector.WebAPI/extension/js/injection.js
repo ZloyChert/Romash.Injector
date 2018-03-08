@@ -115,7 +115,7 @@
             ActionBootstrap: 'bootstrap',
             ActionRecord: 'record',
             ActionCaptcha: 'captcha',
-            SendElement: 'sendelement',
+            SendMessage: 'sendmessage',
             ActionResult: 'actionresult',
             ResulHighlight: 'actionresulthighlight',
             LocateResults: 'locateresults'
@@ -208,7 +208,7 @@
 
         setTimeout(function () {
             element.style.display = '';
-        }, 300);//TODO:replaces hacked for replay scenario
+        }, 500);
 
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onDragAndDropEnd);
@@ -219,73 +219,6 @@
             messageObject: postedData,
             type: typeOfMessage
         }, iframeSrc);
-    }
-
-    function postMessageAboutAction(data) {
-        if (isRecordMode === true) {
-            postMessage(data, messageTypes.ScenarioStep);
-        }
-    }
-
-    var createListener = function (actionName) {
-        return function (event) {
-            if (event.target === this) {
-                postMessageAboutAction({
-                    action: actionName,
-                    xpath: getElementXpath(event.target),
-                    value: event.target.value || event.target.type || event.target.textContent || null
-                });
-            }
-        }
-    };
-
-    function initPageEvents(eventsConfig) {
-        var events = eventsConfig.events;
-
-        for (var i = 0; i < events.length; i++) {
-            var event = events[i];
-            var elements = document.body.querySelectorAll(event.selector);
-            for (var j = 0; j < elements.length; j++) {
-                var element = elements[j];
-                if (element.getAttribute(eventDataAttribute)) {
-                    continue;
-                }
-                var eventsNames;
-                if (event.selectorTypes) {
-                    eventsNames = event.selectorTypes[element.type] || [];
-                } else {
-                    eventsNames = event.eventsNames;
-                }
-                for (var k = 0; k < eventsNames.length; k++) {
-                    var eventName = eventsNames[k];
-                    if (event.action) {
-                        element.setAttribute(eventDataAttribute, 'true');
-                        element.addEventListener(eventName, createListener(event.action), true);
-                    }
-                    else {
-                        element.setAttribute(eventDataAttribute, 'true');
-                        element.addEventListener(eventName, createListener(eventName), true);
-                    }
-                }
-            }
-        }
-    }
-
-    function postPosition(element) {
-        var position = {
-            top: element.style.top,
-            left: element.style.left,
-            bottom: element.style.bottom
-        };
-        postMessage(position,
-            isMinimized ? messageTypes.PositionOfMinimizedIframe : messageTypes.PositionOfMaximizedIframe);
-        if (isMinimized === false) {
-            maximizedPosition = position;
-        }
-    }
-
-    function postMinimizedState() {
-        postMessage(isMinimized, messageTypes.IsMinimized);
     }
 
     function minimizeIde() {
@@ -329,8 +262,6 @@
             } else {
                 maximizeIde();
             }
-            postMinimizedState();
-            postPosition(pageIframeContainer);
         }
     }
 
@@ -342,216 +273,32 @@
         })
     }
 
-    function setStartupPosition(position) {
-        var element = document.getElementById(pageIfarameContanerId);
-        element.style.left = position.left;
-        element.style.top = position.top;
-        element.style.bottom = position.bottom;
-    }
-
-    function getRecaptchaParent(element) {
-        if (element.parentElement.className === "g-recaptcha") {
-            return element.parentElement;
-        }
-        else {
-            return getRecaptchaParent(element.parentElement);
-        }
-    }
-
-    var isInitRecaptcha = false;
-    function initRecaptchaEvent() {
-        if (isInitRecaptcha === false) {
-            if (isRecordMode === true) {
-                isInitRecaptcha = true;
-                var element = document.getElementById("g-recaptcha-response");
-                if (element != null) {
-                    var monitor = setInterval(function () {
-                        if (element.value.length > 0) {
-                            clearInterval(monitor);
-                            var recaptcha = getRecaptchaParent(element);
-                            var apiKey = recaptcha.getAttribute("data-sitekey");
-                            postMessage({
-                                action: 'recaptcha',
-                                xpath: getElementXpath(recaptcha),
-                                value: apiKey
-                            }, messageTypes.ScenarioStep);
-                        }
-                    }, 500);
-                }
-            }
-        }
-    }
-
-    function bootstrap(data) {
-        if (data.isMinimized === true) {
-            minimizeIde();
-            if (data.minimizedPosition) {
-                setStartupPosition(data.minimizedPosition);
-            }
-        }
-        else {
-            if (data.maximizedPosition) {
-                setStartupPosition(data.maximizedPosition);
-            }
-        }
-
-        if (data.maximizedPosition) {
-            maximizedPosition = data.maximizedPosition;
-        } else {
-            var element = document.getElementById(pageIfarameContanerId);
-            maximizedPosition = {
-                top: element.style.top,
-                left: element.style.left,
-                bottom: element.style.bottom
-            };
-        }
-
-        initMinimize();
-        initDragAndDrop();
-
-        if (data.scenario) {
-            isRecordMode = data.scenario.IsRecording || false;
-        }
-
-        if (data.config) {
-            initPageEvents(data.config);
-            var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
-            var elementToObserve = document.querySelector("body");
-            if (elementToObserve) {
-                var observer = new MutationObserver(function (mutations) {
-                    initPageEvents(data.config);
-                });
-
-                observer.observe(elementToObserve, {
-                    childList: true,
-                    subtree: true
-                });
-            }
-        }
-
-        initRecaptchaEvent();
-    }
-
-    function documentClickEvent(event) {
-        event.preventDefault();
-        if (event.target.id === pageIfarameContanerId) {
-            return;
-        }
-        postMessage({
-            action: 'click',
-            xpath: getElementXpath(event.target),
-            value: event.target.value || null
-        }, messageTypes.ScenarioStep);
-    }
-
-    function selectCaptcha() {
-        var createListener = function (event) {
-            event.preventDefault();
-            postMessage(getElementXpath(event.target), messageTypes.Captcha);
-            var elements = document.body.querySelectorAll("img");
-            for (var j = 0; j < elements.length; j++) {
-                var element = elements[j];
-                element.removeEventListener('click', createListener, true);
-            }
-        }
-
-        var elements = document.body.querySelectorAll("img");
-        for (var j = 0; j < elements.length; j++) {
-            var element = elements[j];
-            element.addEventListener('click', createListener, true);
-        }
-    }
-
-    function highlightElement(event) {
-        event.target.classList.add("c2ff0396-53f7-4a62-bedf-a219cf1eba3a");
-    }
-
-    function unhighlightElement(event) {
-        event.target.classList.remove("c2ff0396-53f7-4a62-bedf-a219cf1eba3a");
-    }
-
-    function holdHighlight(event) {
-        event.target.classList.add("a2e51cc7-7520-4117-9267-923ba6c7ec21");
-        setTimeout(function () {
-            event.target.classList.remove("a2e51cc7-7520-4117-9267-923ba6c7ec21");
-        }, 1000);
-    }
-
-    function addHighlight(element) {
-        if (element && element.length) {
-            for (var j = 0; j < element.length; j++) {
-                element[j].addEventListener("mouseover", highlightElement);
-                element[j].addEventListener("mouseout", unhighlightElement);
-                element[j].addEventListener("click", holdHighlight);
-            }
-        }
-    }
-
-    function removeHighlight(element) {
-        if (element && element.length) {
-            for (var j = 0; j < element.length; j++) {
-                element[j].classList.remove("c2ff0396-53f7-4a62-bedf-a219cf1eba3a");
-                element[j].removeEventListener("mouseover", highlightElement);
-                element[j].removeEventListener("mouseout", unhighlightElement);
-                element[j].removeEventListener("click", holdHighlight);
-            }
-        }
-    }
-
-    window.addEventListener('message', function (event) {
+    function handleMessage(event) {
         switch (event.data.action) {
-            case messageTypes.ActionBootstrap:
-                bootstrap(event.data.message);
-                break;
-            case messageTypes.ActionResult:
-                var headerText = document.getElementById(headerTextId);
-                headerText.innerHTML = event.data.message.title;
-                break;
-            case messageTypes.LocateResults:
-                if (event.data.message.enable === true) {
-                    document.addEventListener('click', documentClickEvent, true);
-                } else {
-                    document.removeEventListener('click', documentClickEvent, true);
-                }
-                break;
-            case messageTypes.ActionRecord:
-                isRecordMode = event.data.message.recordingMode;
-                if (isRecordMode === true) {
-                    postMessageAboutAction({
-                        action: 'navigate',
-                        value: window.location.href
-                    });
-
-                    initRecaptchaEvent();
-                }
-                break;
-            case messageTypes.SendElement:
-                break;
-            case messageTypes.ResulHighlight:
-                if (event.data.message.nesesary === true) {
-                    addHighlight(document.querySelectorAll('body *'));
-                } else {
-                    removeHighlight(document.querySelectorAll('body *'));
-                }
+            case messageTypes.SendMessage:
+                console.log('recieve');
+                var body = {
+                    Url: document.URL,
+                    Guid: event.data.message.Guid
+                };
+                console.log('http');
+                httpPost(body, "http://localhost:19407/send")
                 break;
         }
-    }, true);
+    }
 
     function detectDomChange() {
         document.body.addEventListener('DOMSubtreeModified', function () {
-            stubdemo();
+            newElementCheckAndRewrite();
         }, false);
     }
 
-    function stubdemo() {
+    function newElementCheckAndRewrite() {
         var elements = document.body.getElementsByTagName("*");
         for (var i = 0, l = elements.length; i < l; i++) {
             if (elements[i].textContent.startsWith("elementcustom")) {
-                console.log("request");
                 var innertHtmlForElement = httpGet("http://localhost:19407/get/html/" + elements[i].textContent.substr(13, elements[i].textContent.length - 13));
-                elements[i].innerHTML = innertHtmlForElement;
-                console.log(a);
-                console.log("request1");
+                elements[i].innerHTML = unescape(innertHtmlForElement).substr(1, unescape(innertHtmlForElement).length - 2);
             }
         }
     }
@@ -563,58 +310,66 @@
         return xmlHttp.responseText;
     }
 
+    function httpPost(body, theUrl) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", theUrl, false);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(body));
+    }
+
     function injectIframe() {
-      if (!document.getElementById(pageIfarameContanerId)) {
-        pageIframeContainer = document.createElement('div');
-        pageIframeContainer.id = pageIfarameContanerId;
-        pageIframeContainer.style.cssText = pageIfarameContainerStyle;
-        pageIframeContainer.setAttribute(eventDataAttribute, 'true');
+        if (!document.getElementById(pageIfarameContanerId)) {
+            pageIframeContainer = document.createElement('div');
+            pageIframeContainer.id = pageIfarameContanerId;
+            pageIframeContainer.style.cssText = pageIfarameContainerStyle;
+            pageIframeContainer.setAttribute(eventDataAttribute, 'true');
 
-        var pageIframeContainerHeader = document.createElement('div');
-        pageIframeContainerHeader.id = pageIfarameContanerHeaderId;
-        pageIframeContainerHeader.style.cssText = pageIfarameContanerHeaderStyle;
-        pageIframeContainerHeader.setAttribute(eventDataAttribute, 'true');
-        pageIframeContainer.appendChild(pageIframeContainerHeader);
+            var pageIframeContainerHeader = document.createElement('div');
+            pageIframeContainerHeader.id = pageIfarameContanerHeaderId;
+            pageIframeContainerHeader.style.cssText = pageIfarameContanerHeaderStyle;
+            pageIframeContainerHeader.setAttribute(eventDataAttribute, 'true');
+            pageIframeContainer.appendChild(pageIframeContainerHeader);
 
-        var headerText = document.createElement('div');
-        headerText.id = headerTextId;
-        headerText.innerHTML = 'Injector';
-        headerText.setAttribute(eventDataAttribute, 'true');
-        pageIframeContainerHeader.appendChild(headerText);
+            var headerText = document.createElement('div');
+            headerText.id = headerTextId;
+            headerText.innerHTML = 'Injector';
+            headerText.setAttribute(eventDataAttribute, 'true');
+            pageIframeContainerHeader.appendChild(headerText);
 
-        minimizeButton = document.createElement('div');
-        minimizeButton.id = minimizeButtonId;
-        minimizeButton.style.cssText = minimizeButtonStyle;
-        minimizeButton.setAttribute(eventDataAttribute, 'true');
-        pageIframeContainerHeader.appendChild(minimizeButton);
+            minimizeButton = document.createElement('div');
+            minimizeButton.id = minimizeButtonId;
+            minimizeButton.style.cssText = minimizeButtonStyle;
+            minimizeButton.setAttribute(eventDataAttribute, 'true');
+            pageIframeContainerHeader.appendChild(minimizeButton);
 
-        var ideIframe = document.createElement('iframe');
-        ideIframe.src = iframeSrc;
-        ideIframe.style.cssText = ideIframeStyle;
-        ideIframe.id = ideIframeId;
-        ideIframe.setAttribute(eventDataAttribute, 'true');
-        pageIframeContainer.appendChild(ideIframe);
+            var ideIframe = document.createElement('iframe');
+            ideIframe.src = iframeSrc;
+            ideIframe.style.cssText = ideIframeStyle;
+            ideIframe.id = ideIframeId;
+            ideIframe.setAttribute(eventDataAttribute, 'true');
+            pageIframeContainer.appendChild(ideIframe);
 
-        document.body.appendChild(pageIframeContainer);
+            document.body.appendChild(pageIframeContainer);
 
-        iframe = ideIframe;
+            iframe = ideIframe;
 
-        var css = highlightningStyleClass,
-          head = document.head || document.getElementsByTagName('head')[0],
-          style = document.createElement('style');
+            var css = highlightningStyleClass,
+                head = document.head || document.getElementsByTagName('head')[0],
+                style = document.createElement('style');
 
-        style.type = 'text/css';
-        if (style.styleSheet) {
-          style.styleSheet.cssText = css;
-        } else {
-          style.appendChild(document.createTextNode(css));
+            style.type = 'text/css';
+            if (style.styleSheet) {
+                style.styleSheet.cssText = css;
+            } else {
+                style.appendChild(document.createTextNode(css));
+            }
+            window.removeEventListener('message', handleMessage);
+            window.addEventListener('message', handleMessage);
+            head.appendChild(style);
+            initMinimize();
+            initDragAndDrop();
+            detectDomChange();
         }
-
-        head.appendChild(style);
-        initMinimize();
-        initDragAndDrop();
-        detectDomChange();
-      }
     }
 
     injectIframe();
