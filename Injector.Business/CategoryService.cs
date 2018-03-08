@@ -23,12 +23,14 @@ namespace Injector.Business
         public Category Get(int id) => _repository.Get(id);
 
         public IEnumerable<Category> GetAll() => _repository.GetAll();
+
         public void ActivateCategory(int id)
         {
             var category = _repository.Get(id);
             //category.IsActive = true;
             _repository.Update(category);
         }
+
         public void DisactivateCategory(int id)
         {
             var category = _repository.Get(id);
